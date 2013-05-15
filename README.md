@@ -15,6 +15,8 @@ Here's what you'll need to participate in the Hackathon.
 - Your favorite code editor/editors (For Python, HTML, JavaScript)
 - Installation of Python 2.7.x for your operating system: http://www.python.org/download/releases/2.7.4/
 - Installation of the Google AppEngine SDK for Python: https://developers.google.com/appengine/downloads#Google_App_Engine_SDK_for_Python
+- Installation of the Git client of your choice for your OS: http://git-scm.com/downloads
+- Github Account: https://github.com/signup/free
 - Your favorite browser (to test / run the app)
 
 Possible Project Components
