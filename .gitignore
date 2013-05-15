@@ -1,0 +1,5 @@
+# Python compiled code
+*.pyc
+
+# Vim temp files
+*.swp
