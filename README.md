@@ -32,6 +32,46 @@ Here's a potential list of the various components of the project.  This isn't a 
 - JavaScript / jQuery code for querying the REST API.
 - JavaScript / jQuery code for doing visualization calculations.
 
+Contributing and Particpating
+-----------------------------
+Anyone who has an interest should feel free to participate in the project.  Because we expect to have several people working on the code intermittently, we'll be using Github to coordinate and merge everyone's code.
+
+If you feel comfortable with git and Github, you may simply ask the project coordinators for write-access to the repository, and you can push commits directly.
+
+If you're less familiar with git and Github, or you'd simply like to learn one of the standard ways coders use to submit code to open-source projects on Github, use the following procedure:
+- While logged into your own Github account, fork this repository to create a copy in your own account.  Simply click the "Fork" button on the upper right of the repository page.
+- Clone the fork to your local development machine
+
+    ```
+    git clone git@github.com:<your github account>/io-hackathon-2013.git
+    ```
+
+- Since your own fork is now set up as the `origin` remote, you'll want to create another remote to point to the shared, original repository, to pull everyone else's changes in periodically.  Typically this is named `upstream`
+
+    ```
+    git remote add upstream https://github.com/sagepath/io-hackathon-2013.git
+    ```
+
+- Update your local repository on the master branch from the upstream remote.
+
+    ```
+    git pull upstream master
+    ```
+
+- Make your code changes.  Make sure that when you're ready to share your changes, you pull from the upstream master again and merge any changes you might have.  Pull will attempt to merge by default, but sometimes it can be better to use `git pull --rebase` to avoid conflicts and unnecessary merge commits in the history.  Feel free to ask if you need help with this step.
+- Once you've merged in upstream changes with your own changes, and tested to see if things seem to be working, you're ready to share your code.  Push it up first your own fork, which should be set up as the `origin` remote.
+
+    ```
+    git push origin master
+    ```
+
+- After you've pushed to your own fork successfully, you can send the original repository a "pull request."  Simply navigate to your own forked repository page and click "Pull Request" at the top of the page.  Github should present you with the list of commits you've made and default the destination to the original repository.  Accept these options and the Pull Request will be sent to the people coordinating the original repository.
+
+- If everything seems to be working well, the coordinators can accept your Pull Request and your changes will be incorported into the upstream repository.
+
+- Wash, rinse, and repeat!
+
+
 Reading / Documentation
 -----------------------
 Here are some useful links to documentation to familiarize yourself with some of the technology involved in the project.
