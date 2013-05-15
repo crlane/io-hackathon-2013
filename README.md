@@ -17,6 +17,7 @@ Here's what you'll need to participate in the Hackathon.
 - Installation of the Google AppEngine SDK for Python: https://developers.google.com/appengine/downloads#Google_App_Engine_SDK_for_Python
 - Installation of the Git client of your choice for your OS: http://git-scm.com/downloads
 - Github Account: https://github.com/signup/free
+- Github SSH setup: https://help.github.com/articles/generating-ssh-keys
 - Your favorite browser (to test / run the app)
 
 Possible Project Components
