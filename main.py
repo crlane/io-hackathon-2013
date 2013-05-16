@@ -16,10 +16,9 @@
 #
 import webapp2
 
-class MainHandler(webapp2.RequestHandler):
-    def get(self):
-        self.response.write('<h1>Welcome to Google I/O Extended Atlanta 2013</h1>')
+urls = [
+    webapp2.Route(r'/', handler='handlers.IndexHandler',
+        name='index'),
+]
 
-app = webapp2.WSGIApplication([
-    ('/', MainHandler)
-], debug=True)
+app = webapp2.WSGIApplication(urls, debug=True)
