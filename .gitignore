@@ -3,3 +3,6 @@
 
 # Vim temp files
 *.swp
+
+# ignore twitter api config file
+twitter_api.cfg
