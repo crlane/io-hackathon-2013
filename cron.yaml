@@ -1,0 +1,4 @@
+cron:
+- description: update from twitter
+  url: /tasks/twitter
+  schedule: every 5 minutes
