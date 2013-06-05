@@ -2,26 +2,46 @@ import webapp2
 import json
 import urllib2
 import logging as log
+from twitter import *
 
-twitter_search_url = "http://search.twitter.com/search.json?q=%40{0}"
+KEYFILE = 'twitter_api.cfg'
 
+def get_api_access_keys(f=KEYFILE):
+    # TODO: better solution for this, possibly using datastore
+    D = {}
+    with open(f, 'r') as creds: 
+        for line in creds:
+            key,value = [k.strip() for k in line.split(":")]
+            D[("_").join([w.upper() for w in key.split()])] = value
+    return D
+    
 class TwitterTaskHandler(webapp2.RequestHandler):
+    t = None
+    cred = get_api_access_keys()
+    try:
+        t = Twitter(auth=OAuth(cred['ACCESS_TOKEN'], cred['ACCESS_TOKEN_SECRET'],\
+                       cred['CONSUMER_KEY'], cred['CONSUMER_SECRET']))
+    except TwitterError as e:
+        log.error('Could not connect to twitter api: {0}'.format(e))
+    except NameError,KeyError:
+        log.error('Failed to properly load twitter api credentials')
+
     def get(self):
-        count = self._search_twitter('googleio')
-        self.response.write('Updated. Got {0} tweets.'.format(count));
+        if self.t:
+            count = self._search_twitter(term='googleio')
+            self.response.write('Updated. Got {0} tweets.'.format(count));
+        else: 
+            self.response.write('No twitter api connection, query not performed');
 
-    def _search_twitter(self, search_term):
-        url = twitter_search_url.format(search_term)
+    def _search_twitter(self, term):
+        statuses = []
+        try: 
+            statuses = self.t.search.tweets(q=term)
+        except TwitterError as e:
+            log.error('Failed to get results from twitter search: {0}'.format(e))
 
-        tweets = []
-        try:
-            response = json.load(urllib2.urlopen(url))
-            tweets = response['results']
-        except ValueError:
-            log.error('Could not parse Twitter search response')
-        except KeyError:
-            log.error('No field "results" in Twitter response')
-
-        tweet_count = len(tweets)
+        tweet_count = len(statuses)
         log.info('Found {0} matching tweets'.format(tweet_count))
         return tweet_count
+
+
