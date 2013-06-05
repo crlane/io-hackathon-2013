@@ -3,15 +3,10 @@ import json
 import urllib2
 import logging as log
 
-from google.appengine.api import backends
-
 twitter_search_url = "http://search.twitter.com/search.json?q=%40{0}"
 
 class TwitterTaskHandler(webapp2.RequestHandler):
     def get(self):
-        if not backends.get_backend():
-            self.error(403)
-            return
         count = self._search_twitter('googleio')
         self.response.write('Updated. Got {0} tweets.'.format(count));
 
