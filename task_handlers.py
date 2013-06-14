@@ -6,7 +6,7 @@ from twitter import *
 
 KEYFILE = 'twitter_api.cfg'
 
-def get_api_access_keys(f=KEYFILE):
+def _get_api_access_keys(f=KEYFILE):
     # TODO: better solution for this, possibly using datastore
     D = {}
     with open(f, 'r') as creds: 
@@ -16,15 +16,18 @@ def get_api_access_keys(f=KEYFILE):
     return D
     
 class TwitterTaskHandler(webapp2.RequestHandler):
-    t = None
-    cred = get_api_access_keys()
-    try:
-        t = Twitter(auth=OAuth(cred['ACCESS_TOKEN'], cred['ACCESS_TOKEN_SECRET'],\
-                       cred['CONSUMER_KEY'], cred['CONSUMER_SECRET']))
-    except TwitterError as e:
-        log.error('Could not connect to twitter api: {0}'.format(e))
-    except NameError,KeyError:
-        log.error('Failed to properly load twitter api credentials')
+
+    def __init__(self, request, response):
+        self.initialize(request, response)
+        self.t = None
+        cred = _get_api_access_keys()
+        try:
+            self.t = Twitter(auth=OAuth(cred['ACCESS_TOKEN'], cred['ACCESS_TOKEN_SECRET'],\
+                           cred['CONSUMER_KEY'], cred['CONSUMER_SECRET']))
+        except TwitterError as e:
+            log.error('Could not connect to twitter api: {0}'.format(e))
+        except NameError,KeyError:
+            log.error('Failed to properly load twitter api credentials')
 
     def get(self):
         if self.t:
@@ -43,5 +46,4 @@ class TwitterTaskHandler(webapp2.RequestHandler):
         tweet_count = len(statuses)
         log.info('Found {0} matching tweets'.format(tweet_count))
         return tweet_count
-
 
