@@ -7,9 +7,8 @@ from twitter import *
 
 def _get_api_access_keys():
     """Returns a dictionary with key-value pairs for TWITTER_CONSUMER_KEY, TWITTER_CONSUMER_SECRET, 
-    TWITTER_ACCESS_TOKEN, and TWITTER_ACCESS_TOKEN_SECRET for current
-        service provider. Must return (key, secret), order *must* be respected.
-        """
+    TWITTER_ACCESS_TOKEN, and TWITTER_ACCESS_TOKEN_SECRET for current service provider. 
+    """
     app = webapp2.get_app()
     return app.config.get('TWITTER_API_CRED')
 
