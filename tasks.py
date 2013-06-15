@@ -2,7 +2,7 @@
 # These should not be configured to be public, but only
 # available through private backends, requiring admin login.
 import webapp2
-
+from config import config
 from webapp2_extras import routes
 
 urls = [
@@ -10,4 +10,4 @@ urls = [
         strict_slash=True, name='twitter-task'),
 ]
 
-app = webapp2.WSGIApplication(urls, debug=True)
+app = webapp2.WSGIApplication(urls, config=config.config,debug=True)

@@ -1,20 +1,18 @@
 import webapp2
+
 import json
 import urllib2
 import logging as log
 from twitter import *
 
-KEYFILE = 'twitter_api.cfg'
+def _get_api_access_keys():
+    """Returns a dictionary with key-value pairs for TWITTER_CONSUMER_KEY, TWITTER_CONSUMER_SECRET, 
+    TWITTER_ACCESS_TOKEN, and TWITTER_ACCESS_TOKEN_SECRET for current
+        service provider. Must return (key, secret), order *must* be respected.
+        """
+    app = webapp2.get_app()
+    return app.config.get('TWITTER_API_CRED')
 
-def _get_api_access_keys(f=KEYFILE):
-    # TODO: better solution for this, possibly using datastore
-    D = {}
-    with open(f, 'r') as creds: 
-        for line in creds:
-            key,value = [k.strip() for k in line.split(":")]
-            D[("_").join([w.upper() for w in key.split()])] = value
-    return D
-    
 class TwitterTaskHandler(webapp2.RequestHandler):
 
     def __init__(self, request, response):
@@ -22,8 +20,8 @@ class TwitterTaskHandler(webapp2.RequestHandler):
         self.t = None
         cred = _get_api_access_keys()
         try:
-            self.t = Twitter(auth=OAuth(cred['ACCESS_TOKEN'], cred['ACCESS_TOKEN_SECRET'],\
-                           cred['CONSUMER_KEY'], cred['CONSUMER_SECRET']))
+            self.t = Twitter(auth=OAuth(cred['TWITTER_ACCESS_TOKEN'], cred['TWITTER_ACCESS_TOKEN_SECRET'],\
+                           cred['TWITTER_CONSUMER_KEY'], cred['TWITTER_CONSUMER_SECRET']))
         except TwitterError as e:
             log.error('Could not connect to twitter api: {0}'.format(e))
         except NameError,KeyError:
