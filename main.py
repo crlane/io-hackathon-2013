@@ -21,6 +21,8 @@ import json
 urls = [
     webapp2.Route(r'/', handler='handlers.IndexHandler',
         name='index'),
+    webapp2.Route(r'/tweets', handler='handlers.TwitterDisplayHandler',
+        name='tweets'),
 ]
 
 app = webapp2.WSGIApplication(urls, debug=True)

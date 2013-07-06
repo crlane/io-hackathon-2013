@@ -23,6 +23,9 @@ handlers:
   login: admin
   auth_fail_action: redirect
 
+- url: /tweets/.*
+  script: main.app
+
 - url: .*
   script: main.app
 
