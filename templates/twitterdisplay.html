@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block title %}Twitter Word Visualization - PyATL Google IO Hackaton 2013{% endblock title %}
+{% block contents %}
+{% if twitter_data %}
+    {{ twitter_data }}
+    <canvas id="TwitterVizCanvas" height="400" width="800" style="position: relative; padding: 10px; margin: 50px; border:1px solid #000;"></canvas>
+{% endif %}
+{% endblock contents %}
+    {% block scripts %}
+    {{ super() }}
+    <script>
+    $(function(){
+    var c=document.getElementById("TwitterVizCanvas");
+    var obj= {{ twitter_data }};
+    var ctx=c.getContext("2d");
+    var count = 0;
+    for (var k in obj) {
+        ctx.beginPath();
+        ctx.arc(95+(count*20),100,obj[k]*5,0,2*Math.PI);
+        ctx.stroke();
+        count++;
+    }
+    });
+    </script>
+    {% endblock scripts %}
+
