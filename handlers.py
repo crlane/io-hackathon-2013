@@ -2,6 +2,7 @@ import webapp2
 import jinja2
 import string
 import json
+import itertools
 
 _JINJA = jinja2.Environment(
         loader=jinja2.FileSystemLoader('templates/'),
@@ -15,7 +16,15 @@ class IndexHandler(webapp2.RequestHandler):
 
 class TwitterDisplayHandler(webapp2.RequestHandler):
     def get(self):
-        # right now, twitter_data is a dict
-        twitter_data = json.dumps(dict(zip([a for a in string.ascii_lowercase[:10]], xrange(2,12))))
+        word, weight = "name", "value"
+        letters = string.ascii_lowercase[:10]
+        data = []
+        for i, letter in enumerate(letters):
+            data.append(dict(zip([word,weight],[letter,(i+1)*1000])))
+        A = dict()
+        A["name"] = "ROOT"
+        A["children"] = data
+
+        twitter_data = json.dumps(A)
         template = _JINJA.get_template('twitterdisplay.html')
         self.response.write(template.render(twitter_data = twitter_data))
