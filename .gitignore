@@ -6,4 +6,5 @@
 
 # ignore twitter api config file
 *.bk
+./twitter
 ./twitter/*
